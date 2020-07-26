@@ -1,0 +1,13 @@
+<%- include partials/header.ejs %>
+
+<%  questions.forEach(function(question){ %>
+
+    <h1><%=question.questionHere%></h1>
+    <h5>Asked By <%= question.nameAsk %> </h5>
+    <button class="btn btn-dark" type="submit">Answer</button>
+    <a href="/allanswers">View Answers</a>
+
+    <hr style="height: 5px; color: black; background-color: black;">
+    <% }) %>
+
+<%- include partials/footer.ejs %>
