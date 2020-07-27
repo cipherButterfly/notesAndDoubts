@@ -21,7 +21,8 @@ a:hover {
 }
 
 .footer {
-	position: absolute;
+    padding-top: 2px;
+    bottom: 100%;
 	text-align: center;
 	bottom: 0;
 	width: 100%;
@@ -52,5 +53,15 @@ a{
     color: white;
 }
 
+#viewAns{
+    color: brown;
+}
 
+h3{
+    color: darkcyan;
+}
+
+contact{
+    color: cornflowerblue;
+}
 
