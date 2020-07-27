@@ -1,0 +1,11 @@
+<%- include partials/header %>
+<h1 name="questionToBeAnswered" id="questionName"><%= questionAsked %> </h1>
+<form action="" method="POST">
+    <h3>Name</h3>
+    <input type="text" name="newNameAnsQ" placeholder="Name" class="title">
+    <h3>Answer</h3>
+    <textarea name="newAnswerForQ" placeholder="Start writing here..........." class="post"></textarea>
+    <br>
+    <button class="btn btn-dark" type="submit">Finish</button>
+</form>
+<%- include partials/footer %> 

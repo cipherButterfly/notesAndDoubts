@@ -13,6 +13,8 @@ const app = express();
 
 let allPosts = [];
 let allQuestions = [];
+let allAnswersForQuestion = [];
+let helement = "";
 
 app.set('view engine', 'ejs');
 
@@ -57,8 +59,70 @@ app.get("/answerHere/:postName", function(req, res){
   });
 
   app.get("/questions", function(req, res){
-    res.render("questions",{questions: allQuestions});
+    res.render("questions",{questions: allQuestions, allAnswers: allAnswersForQuestion});
   });
+
+  app.get("/answerPartQuestion/:questionHere", function(req, res){
+    const requestedQuestion = _.lowerCase(req.params.questionHere);
+
+    allQuestions.forEach(function(question){
+      const storedQuestion = _.lowerCase(question.questionHere);
+
+      if(storedQuestion === requestedQuestion){
+        res.render("partAnswer",{
+          questionAsked: question.questionHere
+        });
+        helement = question.questionHere;
+      }
+    });
+    
+  });
+
+  app.get("/allAnswersWithQuestions", function(req, res){
+    res.render("allanswers", {answers: allAnswersForQuestion});
+  });
+
+  /* app.get("/allAnswers/:questionHere",function(req, res){
+    const requestedQuestion = _.lowerCase(req.params.questionHere);
+    let questionPointed = [];
+    allQuestions.forEach(function(question){
+      const storedQuestion = _.lowerCase(question.questionHere);
+
+      if(storedQuestion == requestedQuestion){
+        questionPointed[0] = storedQuestion;
+      }
+    });
+    allAnswersForQuestion.forEach(function(answerCombined){
+      const storedQuestionInAnswer = _.lowerCase(answerCombined.questionAnswered);
+      const storedNameWhoAnswered = _.lowerCase(answerCombined.nameWhoAnswered);
+      const storedAnswerFinal = _.lowerCase(answerCombined.answerFinal);
+      const storedAnswerCombined = _.lowerCase(answerCombined);
+      if(questionPointed[0] == storedQuestionInAnswer){
+        res.render("allanswers",{
+          questionAnswered: storedQuestionInAnswer,
+          nameWhoAnswered: storedNameWhoAnswered,
+          answerFinal: storedAnswerFinal,
+          answerCombined: storedAnswerCombined
+        });
+      }
+    });
+  }); **/
+
+app.post("/answerPartQuestion/:questionHere", function(req, res){
+  let questionAnswered = helement;
+  let nameWhoAnswered = req.body.newNameAnsQ;
+  let answerFinal = req.body.newAnswerForQ;
+
+  let answerCombined = {
+    questionAnswered: questionAnswered,
+    nameWhoAnswered: nameWhoAnswered,
+    answerFinal: answerFinal
+  }
+
+    allAnswersForQuestion.push(answerCombined);
+    console.log(answerCombined);
+    res.redirect("/questions");
+});
 
 app.post("/ask", function(req,res){
   let nameAsk = req.body.newNameAsk;
@@ -87,6 +151,6 @@ app.post("/notes", function(req,res){
     res.redirect("/");
 });
 
-app.listen(process.env.PORT, function() {
+app.listen(process.env.PORT || 3000, function() {
   console.log("Server started on port 3000");
 });

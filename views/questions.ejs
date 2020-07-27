@@ -2,12 +2,16 @@
 
 <%  questions.forEach(function(question){ %>
 
-    <h1><%=question.questionHere%></h1>
+    <h1 name="questionToBeAnswered"><%=question.questionHere%></h1>
     <h5>Asked By <%= question.nameAsk %> </h5>
-    <button class="btn btn-dark" type="submit">Answer</button>
-    <a href="/allanswers">View Answers</a>
+
+    <button class="btn btn-dark" type="submit" onclick='location.href = "/answerPartQuestion/<%=question.questionHere%>"'>Answer</button>
+    <hr style="height: 5px; color: black; background-color: black;">
+    <% }); %> 
+    
+    <br>
 
     <hr style="height: 5px; color: black; background-color: black;">
-    <% }) %>
+   
 
 <%- include partials/footer.ejs %>

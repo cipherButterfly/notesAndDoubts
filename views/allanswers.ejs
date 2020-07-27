@@ -1,0 +1,10 @@
+<%- include partials/header.ejs %>
+
+<% answers.forEach(function(answer){ %>
+    <h2><%= answer.questionAnswered %></h2>
+    <h6>Answered by <%= answer.nameWhoAnswered %> </h6>
+    <p><%= answer.answerFinal %> </p>
+    <p>-------------------------------------------------------------------------------------------------</p>  
+<% }); %> 
+
+<%- include partials/footer.ejs %>
